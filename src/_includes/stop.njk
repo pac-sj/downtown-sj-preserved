@@ -1,0 +1,69 @@
+---
+layout: base.njk
+---
+{%- set stops = collections.stops -%}
+{%- set total = stops.length -%}
+{%- set nextStop = stops | stopByNumber(number + 1) -%}
+
+<header class="site-header">
+  <div class="container">
+    <a href="/" class="back-home">← All Stops</a>
+    <span class="site-brand">Downtown San Jose: Preserved</span>
+  </div>
+</header>
+
+<main class="container">
+
+  <div class="stop-intro" data-stop="{{ number | pad }}">
+    <span class="stop-badge">Stop {{ number }} of {{ total }}{% if not nextStop %} — Final Stop{% endif %}</span>
+    <h1 class="stop-title">{{ title }}</h1>
+    <p class="stop-progress">
+      {%- if nextStop %}Next: {{ nextStop.data.title }} →{% else %}You've reached the end of the tour.{% endif -%}
+    </p>
+  </div>
+
+  {% for section in sections %}
+  <section class="photo-section">
+    <p class="photo-section-label">{{ section.label }}</p>
+    {% for photo in section.photos %}
+    <figure{% if photo.portrait %} class="portrait"{% endif %}>
+      <img src="{{ photo.image }}" alt="{{ photo.alt or photo.caption }}" loading="lazy">
+      <figcaption>{{ photo.caption }}</figcaption>
+    </figure>
+    {% endfor %}
+  </section>
+  {% endfor %}
+
+  {% if not nextStop %}
+  <div class="cta-box">
+    <span class="cta-eyebrow">Thank you for exploring with us</span>
+    <h2>Help Preserve San Jose's Architectural Heritage</h2>
+    <p>
+      PAC*SJ has advocated for the preservation of San Jose's historic
+      buildings and neighborhoods since 1980. Your membership makes this
+      work possible — join us in protecting the places that make
+      downtown San Jose irreplaceable.
+    </p>
+    <a href="https://www.preservation.org" target="_blank" rel="noopener" class="btn-cta">
+      Join PAC*SJ →
+    </a>
+  </div>
+  {% endif %}
+
+  <nav class="stop-nav" aria-label="Tour navigation">
+    {% if nextStop %}
+    <a href="/stop-{{ nextStop.data.number }}/" class="btn-next">
+      <span class="next-label">Next Stop</span>
+      <span class="next-name">{{ nextStop.data.title }} →</span>
+    </a>
+    {% else %}
+    <a href="/" class="btn-next" style="background: var(--dark);">
+      <span class="next-label">Tour Complete</span>
+      <span class="next-name">← Back to All Stops</span>
+    </a>
+    {% endif %}
+  </nav>
+
+</main>
+
+<script src="/js/lightbox.js" defer></script>

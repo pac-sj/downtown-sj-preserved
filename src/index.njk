@@ -1,0 +1,27 @@
+---
+layout: base.njk
+pageTitle: "Downtown San Jose: Preserved — PAC*SJ Walking Tour"
+description: "A photo companion for the Downtown San Jose: Preserved walking tour by PAC*SJ."
+---
+<header class="home-hero">
+  <div class="container">
+    <span class="eyebrow">PAC*SJ · Preservation Action Council</span>
+    <h1>A tour with a purpose.<br>A repurpose.</h1>
+    <p class="intro">A walking tour celebrating the historic buildings, spaces, and stories that define downtown San Jose.</p>
+  </div>
+</header>
+
+<main class="container">
+  <p class="stop-list-heading">Tour Stops — in order</p>
+  <ol class="stop-list">
+    {% for stop in collections.stops %}
+    <li>
+      <a href="/stop-{{ stop.data.number }}/">
+        <span class="stop-num">{{ stop.data.number | pad }}</span>
+        <span class="stop-name">{{ stop.data.title }}</span>
+        <span class="stop-chevron">›</span>
+      </a>
+    </li>
+    {% endfor %}
+  </ol>
+</main>

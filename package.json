@@ -1,0 +1,13 @@
+{
+  "name": "downtown-sj-preserved",
+  "version": "1.0.0",
+  "description": "Photo companion site for the Downtown San Jose: Preserved walking tour by PAC*SJ.",
+  "private": true,
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  }
+}

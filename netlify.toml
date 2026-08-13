@@ -1,0 +1,9 @@
+# Netlify build settings for the Downtown San Jose: Preserved tour site.
+# Netlify runs this automatically on every push to the main branch.
+
+[build]
+  command = "npm run build"
+  publish = "_site"
+
+[build.environment]
+  NODE_VERSION = "20"

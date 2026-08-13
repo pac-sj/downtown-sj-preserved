@@ -1,0 +1,5 @@
+{
+  "layout": "stop.njk",
+  "permalink": "/stop-{{ number }}/index.html",
+  "pageTitle": "Stop {{ number }}: {{ title }} — Downtown San Jose: Preserved"
+}
