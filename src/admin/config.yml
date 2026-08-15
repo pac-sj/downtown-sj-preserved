@@ -1,0 +1,96 @@
+# ============================================================
+# Admin dashboard settings for the Downtown San Jose: Preserved tour site.
+#
+# This file controls what editors see at /admin. You normally never need to
+# touch it. The one line that matters if the repository ever moves is "repo:"
+# just below -- if the site is moved to a different GitHub account or renamed,
+# that line must be updated to match or the login will stop working.
+# ============================================================
+
+backend:
+  name: github
+  repo: pac-sj/downtown-sj-preserved
+  branch: main
+
+# Where uploaded photos are stored in the repository...
+media_folder: "src/images/uploads"
+# ...and the address those photos are served from on the website.
+public_folder: "/images/uploads"
+
+collections:
+  - name: "stops"
+    label: "Tour Stops"
+    label_singular: "Tour Stop"
+    description: >
+      Each entry below is one stop on the walking tour. Open a stop to add
+      photos, edit captions, reorder photos, or remove one.
+    folder: "src/stops"
+    extension: "md"
+    create: true
+    delete: true
+    slug: "stop-{{number}}"
+    identifier_field: "title"
+    summary: "Stop {{number}} — {{title}}"
+    sortable_fields: ["number"]
+    fields:
+      - label: "Stop name"
+        name: "title"
+        widget: "string"
+        hint: "Shown as the big heading on the page and in the tour stop list."
+
+      - label: "Stop number"
+        name: "number"
+        widget: "number"
+        value_type: "int"
+        min: 1
+        hint: "Controls the order of the tour and the page address. Only change this if the tour route itself changes."
+
+      - label: "Page description"
+        name: "description"
+        widget: "string"
+        required: false
+        hint: "A one-line summary used by search engines. Optional."
+
+      - label: "Photo sections"
+        name: "sections"
+        widget: "list"
+        label_singular: "Photo section"
+        summary: "{{fields.label}}"
+        hint: "Most stops have a single section. Add another only if you want a second heading partway down the page."
+        fields:
+          - label: "Section heading"
+            name: "label"
+            widget: "string"
+            default: "Historic Photos"
+            hint: "The small orange heading above this group of photos."
+
+          - label: "Photos"
+            name: "photos"
+            widget: "list"
+            label_singular: "Photo"
+            summary: "{{fields.caption}}"
+            collapsed: false
+            hint: "Drag the handle on the left of a photo to reorder. Use the trash icon to remove one."
+            fields:
+              - label: "Photo"
+                name: "image"
+                widget: "image"
+                hint: "Click to upload a new photo or pick one already uploaded."
+
+              - label: "Caption"
+                name: "caption"
+                widget: "text"
+                hint: "The sentence printed underneath the photo on the page."
+
+              - label: "Description for screen readers"
+                name: "alt"
+                widget: "text"
+                required: false
+                hint: "Describes the photo for visitors using a screen reader. If left blank, the caption is used instead."
+
+              - label: "Tall photo?"
+                name: "portrait"
+                widget: "boolean"
+                default: false
+                required: false
+                hint: "Turn on for upright photos such as portraits. Keeps them from being stretched too wide."
